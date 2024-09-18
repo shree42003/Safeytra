@@ -1,11 +1,15 @@
-import { View, Text } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, ScrollView } from "react-native"
+import { images } from "../../constants";
 
 const SignUp = () =>{
     return (
-        <SafeAreaView>
-            <Text>Home</Text>
-        </SafeAreaView>
+        <ScrollView className ="flex-1 bg-white">
+            <View>
+                <View className="relative w-full h-[250px]">
+                    <Image source={images.signupCar} className/>
+                </View>
+            </View>
+        </ScrollView>
     );
 };
 
