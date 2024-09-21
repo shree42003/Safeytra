@@ -1,4 +1,13 @@
 const { Stack } = require("expo-router");
+import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
+
+import {tokenCache} from "@/lib/auth"
+SplashScreen.preventUtoHideAsync();
+
+
+import { Slot } from 'expo-router'
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
 const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -9,11 +18,21 @@ const [loaded] = useFonts({
     "Jakarta-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
 });
+if (!publishableKey) {
+    throw new Error(
+      'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
+    )
+  }
 
 return(
+    <ClerkProvider publishedkey={publishedkey} tokenCache={tokenCache}>
+      <ClerkLoaded>
     <Stack>
         <Stack.Screen name ="index" options={{headerShown:false}}/>
         <Stack.Screen name ="(root)" options={{headerShown:false}}/>
         <Stack.Screen name ="(auth)" options={{headerShown:false}}/>
     </Stack>
+    </ClerkLoaded>
+    </ClerkProvider>
+
 )
